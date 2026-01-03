@@ -1,0 +1,7 @@
+{
+  "name": "LibraTech ",
+  "description": "QR kod entegrasyonu, öğrenci takibi ve otomatik gecikme uyarıları içeren modern bir kütüphane yönetim sistemi.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
