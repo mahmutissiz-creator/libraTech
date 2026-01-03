@@ -1,6 +1,6 @@
 import React from 'react';
 import { BookOpen, Users, LayoutDashboard, ArrowLeftRight, LogOut, Library, RefreshCcw } from 'lucide-react';
-import { LibraryService } from '../services/mockDatabase';
+import { LibraryService } from '../services/libraryService';
 
 interface LayoutProps {
   children: React.ReactNode;

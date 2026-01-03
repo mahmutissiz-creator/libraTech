@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Student } from '../types';
-import { LibraryService } from '../services/mockDatabase';
+import { LibraryService } from '../services/libraryService';
 import { Plus, Printer, Trash2, Search } from 'lucide-react';
 import { QRCodeDisplay } from '../components/QRCodeDisplay';
 
@@ -10,7 +10,7 @@ export const Students: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const [isAdding, setIsAdding] = useState(false);
-  const [newStudent, setNewStudent] = useState({ name: '', studentNumber: '', email: '', grade: '' });
+  const [newStudent, setNewStudent] = useState({ name: '', studentNumber: '', grade: '' });
 
   const fetchStudents = async () => {
     const data = await LibraryService.getStudents();
@@ -37,7 +37,7 @@ export const Students: React.FC = () => {
     if (newStudent.name && newStudent.studentNumber) {
       const res = await LibraryService.addStudent(newStudent);
       if (res.success) {
-        setNewStudent({ name: '', studentNumber: '', email: '', grade: '' });
+        setNewStudent({ name: '', studentNumber: '', grade: '' });
         setIsAdding(false);
         fetchStudents();
       } else {
@@ -114,19 +114,12 @@ export const Students: React.FC = () => {
               required
             />
             <input 
-              placeholder="Email" 
-              type="email"
-              className="border p-2 rounded" 
-              value={newStudent.email}
-              onChange={e => setNewStudent({...newStudent, email: e.target.value})}
-            />
-            <input 
               placeholder="Sınıf / Şube" 
-              className="border p-2 rounded" 
+              className="border p-2 rounded col-span-1 md:col-span-2" 
               value={newStudent.grade}
               onChange={e => setNewStudent({...newStudent, grade: e.target.value})}
             />
-            <button type="submit" className="col-span-2 bg-indigo-600 text-white p-2 rounded hover:bg-indigo-700">Öğrenciyi Kaydet</button>
+            <button type="submit" className="col-span-1 md:col-span-2 bg-indigo-600 text-white p-2 rounded hover:bg-indigo-700">Öğrenciyi Kaydet</button>
           </form>
         </div>
       )}
@@ -152,7 +145,7 @@ export const Students: React.FC = () => {
                 <td className="px-6 py-4 text-gray-500 font-mono">{student.studentNumber}</td>
                 <td className="px-6 py-4">{student.grade}</td>
                 <td className="px-6 py-4 text-sm text-gray-500">
-                  {student.readingHistory.length} kitap okudu
+                  {student.readingHistory ? student.readingHistory.length : 0} kitap okudu
                 </td>
                 <td className="px-6 py-4 text-right">
                   <button 

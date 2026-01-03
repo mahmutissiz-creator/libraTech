@@ -15,9 +15,9 @@ const initialBooks: Book[] = [
 ];
 
 const initialStudents: Student[] = [
-  { id: 's1', name: 'Ali Yılmaz', studentNumber: '2024001', email: 'ali@okul.com', grade: '10-A', readingHistory: [] },
-  { id: 's2', name: 'Ayşe Demir', studentNumber: '2024002', email: 'ayse@okul.com', grade: '11-B', readingHistory: ['b2'] },
-  { id: 's3', name: 'Mehmet Kaya', studentNumber: '2024003', email: 'mehmet@okul.com', grade: '9-C', readingHistory: [] },
+  { id: 's1', name: 'Ali Yılmaz', studentNumber: '2024001', grade: '10-A', readingHistory: [] },
+  { id: 's2', name: 'Ayşe Demir', studentNumber: '2024002', grade: '11-B', readingHistory: ['b2'] },
+  { id: 's3', name: 'Mehmet Kaya', studentNumber: '2024003', grade: '9-C', readingHistory: [] },
 ];
 
 const initialTransactions: Transaction[] = [

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Book, BookStatus } from '../types';
-import { LibraryService } from '../services/mockDatabase';
+import { LibraryService } from '../services/libraryService';
 import { Plus, Printer, Trash2, Search } from 'lucide-react';
 import { QRCodeDisplay } from '../components/QRCodeDisplay';
 

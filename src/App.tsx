@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Layout } from './components/Layout';
 import { Login } from './pages/Login';
 import { Dashboard } from './pages/Dashboard';
@@ -6,28 +6,42 @@ import { Circulation } from './pages/Circulation';
 import { BookInventory } from './pages/BookInventory';
 import { Students } from './pages/Students';
 import { User } from './types';
+import { auth } from './firebase';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
 
 const App: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState('dashboard');
 
-  const handleLogin = () => {
-    // Simulating Firebase Auth login
-    setUser({
-      id: 'admin-1',
-      name: 'Admin User',
-      email: 'admin@library.school',
-      role: 'ADMIN'
+  useEffect(() => {
+    // Firebase Auth Listener
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+      if (firebaseUser) {
+        setUser({
+          id: firebaseUser.uid,
+          name: firebaseUser.displayName || 'Admin',
+          email: firebaseUser.email || '',
+          role: 'ADMIN'
+        });
+      } else {
+        setUser(null);
+      }
+      setLoading(false);
     });
-  };
+
+    return () => unsubscribe();
+  }, []);
 
   const handleLogout = () => {
-    setUser(null);
+    signOut(auth);
     setCurrentPage('dashboard');
   };
 
+  if (loading) return <div className="flex h-screen items-center justify-center">Yükleniyor...</div>;
+
   if (!user) {
-    return <Login onLogin={handleLogin} />;
+    return <Login />;
   }
 
   const renderPage = () => {
